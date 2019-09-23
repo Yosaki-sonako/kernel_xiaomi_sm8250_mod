@@ -328,6 +328,10 @@ EXPORT_SYMBOL(vmalloc_to_pfn);
 #define DEBUG_AUGMENT_PROPAGATE_CHECK 0
 #define DEBUG_AUGMENT_LOWEST_MATCH_CHECK 0
 
+<<<<<<< HEAD
+=======
+#define VM_VM_AREA	0x04
+>>>>>>> 3bd71fc21d33 (mm/vmalloc: do not keep unpurged areas in the busy tree)
 
 static DEFINE_SPINLOCK(vmap_area_lock);
 static DEFINE_SPINLOCK(free_vmap_area_lock);
@@ -2270,6 +2274,7 @@ struct vm_struct *remove_vm_area(const void *addr)
 
 	struct vmap_area *va;
 
+<<<<<<< HEAD
 	spin_lock(&vmap_area_lock);
 	va = __find_vmap_area((unsigned long)addr);
 
@@ -2282,6 +2287,15 @@ struct vm_struct *remove_vm_area(const void *addr)
 	}
 
   spin_unlock(&vmap_area_lock);
+=======
+  
+	spin_lock(&vmap_area_lock);
+	va = __find_vmap_area((unsigned long)addr);
+	if (va && va->flags & VM_VM_AREA)
+		return va->vm;
+  spin_unlock(&vmap_area_lock);
+
+>>>>>>> 3bd71fc21d33 (mm/vmalloc: do not keep unpurged areas in the busy tree)
 	return NULL;
 
 }
@@ -3560,7 +3574,11 @@ static int s_show(struct seq_file *m, void *p)
 	 * s_show can encounter race with remove_vm_area, !vm on behalf
 	 * of vmap area is being tear down or vm_map_ram allocation.
 	 */
+
 	if (!va->vm) {
+
+	if (!(va->flags & VM_VM_AREA)) {
+
 		seq_printf(m, "0x%pK-0x%pK %7ld vm_map_ram\n",
 			(void *)va->va_start, (void *)va->va_end,
 			va->va_end - va->va_start);
