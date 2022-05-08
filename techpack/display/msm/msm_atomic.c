@@ -536,14 +536,14 @@ static void complete_commit(struct msm_commit *c)
 
 static void _msm_drm_commit_work_cb(struct kthread_work *work)
 {
-	struct msm_commit *commit = NULL;
+	struct msm_commit *commit = container_of(work, typeof(*ccommit),
+						 commit_work);
 
-	if (!work) {
-		DRM_ERROR("%s: Invalid commit work data!\n", __func__);
-		return;
-	}
+	ktime_t start, end;
+	s64 duration;
+	start = ktime_get();
+	frame_stat_collector(0, COMMIT_START_TS);
 
-	commit = container_of(work, struct msm_commit, commit_work);
 
 	SDE_ATRACE_BEGIN("complete_commit");
 	complete_commit(commit);
