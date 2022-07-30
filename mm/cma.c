@@ -31,7 +31,6 @@
 #include <linux/highmem.h>
 #include <linux/io.h>
 #include <linux/kmemleak.h>
-#include <linux/delay.h>
 #include <linux/show_mem_notifier.h>
 #include <linux/sched.h>
 #include <linux/jiffies.h>
@@ -461,11 +460,13 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
 	size_t i;
 	struct page *page = NULL;
 	int ret = -ENOMEM;
+
 	int max_retries = 20;
 	int available_regions = 0;
 
 	int num_attempts = 0;
 	int max_retries = 5;
+
 
 
 	if (!cma || !cma->count)
@@ -493,6 +494,7 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
 				bitmap_maxno, start, bitmap_count, mask,
 				offset);
 		if (bitmap_no >= bitmap_maxno) {
+<<<<<<< HEAD
 			if ((num_attempts < max_retries) && (ret == -EBUSY)) {
 				mutex_unlock(&cma->lock);
 
@@ -515,6 +517,10 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
 				mutex_unlock(&cma->lock);
 				break;
 			}
+=======
+			mutex_unlock(&cma->lock);
+			break;
+>>>>>>> b7dd9995794a (Revert "mm: cma: sleep between retries in cma_alloc")
 		}
 		bitmap_set(cma->bitmap, bitmap_no, bitmap_count);
 		/*
