@@ -235,7 +235,6 @@ enum sde_enc_rc_states {
  * @recovery_events_enabled:	status of hw recovery feature enable by client
  * @elevated_ahb_vote:		increase AHB bus speed for the first frame
  *				after power collapse
- * @pm_qos_cpu_req:		pm_qos request for cpu frequency
  * @mode_info:                  stores the current mode and should be used
  *				 only in commit phase
  */
@@ -303,7 +302,6 @@ struct sde_encoder_virt {
 
 	bool recovery_events_enabled;
 	bool elevated_ahb_vote;
-	struct pm_qos_request pm_qos_cpu_req;
 	struct msm_mode_info mode_info;
 	bool prepare_kickoff;
 	bool ready_kickoff;
@@ -360,6 +358,7 @@ void sde_encoder_uidle_enable(struct drm_encoder *drm_enc, bool enable)
 	}
 }
 
+
 static void _sde_encoder_pm_qos_add_request(struct drm_encoder *drm_enc,
 	struct sde_kms *sde_kms)
 {
@@ -397,6 +396,7 @@ static void _sde_encoder_pm_qos_remove_request(struct drm_encoder *drm_enc,
 
 	pm_qos_remove_request(&sde_enc->pm_qos_cpu_req);
 }
+
 
 static bool _sde_encoder_is_autorefresh_enabled(
 		struct sde_encoder_virt *sde_enc)
@@ -2302,12 +2302,8 @@ static int _sde_encoder_resource_control_helper(struct drm_encoder *drm_enc,
 		/* enable all the irq */
 		_sde_encoder_irq_control(drm_enc, true);
 
-		if (is_cmd_mode)
-			_sde_encoder_pm_qos_add_request(drm_enc, sde_kms);
 
 	} else {
-		if (is_cmd_mode)
-			_sde_encoder_pm_qos_remove_request(drm_enc, sde_kms);
 
 		/* disable all the irq */
 		_sde_encoder_irq_control(drm_enc, false);
