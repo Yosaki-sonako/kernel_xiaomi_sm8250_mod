@@ -10300,8 +10300,7 @@ next_group:
 
 	if (!env->sd->parent) {
 		/* update overload indicator if we are at root domain */
-		if (READ_ONCE(env->dst_rq->rd->overload) != (sg_status & SG_OVERLOAD))
-			WRITE_ONCE(env->dst_rq->rd->overload, sg_status & SG_OVERLOAD);
+		set_rd_overload(env->dst_rq->rd, sg_status & SG_OVERLOAD);
 
 	if (sg_status & SG_OVERUTILIZED)
 		set_sd_overutilized(env->sd);
@@ -12196,10 +12195,11 @@ static int idle_balance(struct rq *this_rq, struct rq_flags *rf)
 	rq_unpin_lock(this_rq, rf);
 
 	if (avg_idle < sysctl_sched_migration_cost ||
-	    !READ_ONCE(this_rq->rd->overload)) {
+	    !get_rd_overload(this_rq->rd)) {
 
-		rcu_read_lock();
-		sd = rcu_dereference_check_sched_domain(this_rq->sd);
+	  rcu_read_lock();
+    sd = rcu_dereference_check_sched_domain(this_rq->sd);
+       
 		if (sd)
 			update_next_balance(sd, &next_balance);
 		rcu_read_unlock();
