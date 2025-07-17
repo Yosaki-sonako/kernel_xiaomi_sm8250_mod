@@ -370,6 +370,9 @@ static const struct usb_device_id usb_quirk_list[] = {
 	/* SanDisk Extreme 55AE */
 	{ USB_DEVICE(0x0781, 0x55ae), .driver_info = USB_QUIRK_NO_LPM },
 
+<<<<<<< HEAD
+>>>>>>> 4cea2d4d6662 (treewide: Import linux-cip/v4.19-st6)
+=======
 >>>>>>> 4cea2d4d6662 (treewide: Import linux-cip/v4.19-st6)
 	/* Realforce 87U Keyboard */
 	{ USB_DEVICE(0x0853, 0x011b), .driver_info = USB_QUIRK_NO_LPM },

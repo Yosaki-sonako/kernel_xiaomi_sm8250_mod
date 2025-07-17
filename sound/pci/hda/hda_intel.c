@@ -2379,6 +2379,9 @@ static struct snd_pci_quirk power_save_blacklist[] = {
 	SND_PCI_QUIRK(0x1028, 0x0962, "Dell ALC3271", 0),
 	/* https://bugzilla.kernel.org/show_bug.cgi?id=220210 */
 	SND_PCI_QUIRK(0x17aa, 0x5079, "Lenovo Thinkpad E15", 0),
+<<<<<<< HEAD
+>>>>>>> 4cea2d4d6662 (treewide: Import linux-cip/v4.19-st6)
+=======
 >>>>>>> 4cea2d4d6662 (treewide: Import linux-cip/v4.19-st6)
 	{}
 };

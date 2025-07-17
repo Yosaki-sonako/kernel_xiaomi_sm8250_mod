@@ -2,7 +2,11 @@
 VERSION = 4
 PATCHLEVEL = 19
 <<<<<<< HEAD
+<<<<<<< HEAD
 SUBLEVEL = 325
+=======
+SUBLEVEL = 334
+>>>>>>> 4cea2d4d6662 (treewide: Import linux-cip/v4.19-st6)
 =======
 SUBLEVEL = 334
 >>>>>>> 4cea2d4d6662 (treewide: Import linux-cip/v4.19-st6)
