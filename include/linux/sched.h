@@ -1539,7 +1539,7 @@ struct task_struct {
 #ifdef CONFIG_PACKAGE_RUNTIME_INFO
 struct package_runtime_info pkg;
 #endif
-=======
+
 #ifdef CONFIG_ANDROID_SIMPLE_LMK
 	struct task_struct		*simple_lmk_next;
 #endif
