@@ -4608,20 +4608,15 @@ restart:
 	if (!ac->preferred_zoneref->zone)
 		goto nopage;
 
-<<<<<<< HEAD
 	if (alloc_flags & ALLOC_KSWAPD)
-=======
 	if (gfp_mask & __GFP_KSWAPD_RECLAIM) {
 		if (!woke_kswapd) {
 			atomic_long_inc(&kswapd_waiters);
 			woke_kswapd = true;
 		}
-<<<<<<< HEAD
->>>>>>> 300976d8639a (mm: Stop kswapd early when nothing's waiting for it to free pages)
-=======
 		if (!used_vmpressure)
 			used_vmpressure = vmpressure_inc_users(order);
->>>>>>> fe82b531ad13 (mm: vmpressure: Fix rampant inaccuracies caused by stale data usage)
+
 		wake_all_kswapds(order, gfp_mask, ac);
 	}
 
