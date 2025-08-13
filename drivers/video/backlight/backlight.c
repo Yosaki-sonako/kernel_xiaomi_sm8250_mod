@@ -215,15 +215,14 @@ static ssize_t brightness_store(struct device *dev,
 		return rc;
 
 	bd->usr_brightness_req = brightness;
-<<<<<<< HEAD
+
 #ifndef CONFIG_BOARD_XIAOMI
 	brightness = (brightness <= bd->thermal_brightness_limit) ?
 				bd->usr_brightness_req :
 				bd->thermal_brightness_limit;
 #endif
 
-=======
->>>>>>> a3a8a0032e0d (disp: msm: Enable thermal dimming on k11a platform)
+
 	rc = backlight_device_set_brightness(bd, brightness);
 
 	return rc ? rc : count;

@@ -86,11 +86,9 @@ static int bd_cdev_set_cur_brightness_clone(struct thermal_cooling_device *cdev,
 				bd->props.brightness_clone_backup :
 				bd->thermal_brightness_clone_limit;
 	bd->props.brightness_clone = brightness_lvl;
-<<<<<<< HEAD
+
         sysfs_notify(&bd->dev.kobj, NULL, "brightness_clone");
-=======
-	sysfs_notify(&bd->dev.kobj, NULL, "brightness_clone");
->>>>>>> a3a8a0032e0d (disp: msm: Enable thermal dimming on k11a platform)
+
 #else
 	sysfs_notify(&cdev->device.kobj, NULL, "cur_state");
 #endif
