@@ -460,7 +460,6 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
 	size_t i;
 	struct page *page = NULL;
 	int ret = -ENOMEM;
-	int available_regions = 0;
 
 	int num_attempts = 0;
 	int max_retries = 5;
