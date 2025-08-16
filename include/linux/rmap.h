@@ -292,12 +292,12 @@ int page_mapped_in_vma(struct page *page, struct vm_area_struct *vma);
  */
 struct rmap_walk_control {
 	void *arg;
-<<<<<<< HEAD
+
 	struct vm_area_struct *target_vma;
-=======
+
 	bool try_lock;
 	bool contended;
->>>>>>> 780185355e6c (BACKPORT: mm: don't be stuck to rmap lock on reclaim path)
+
 	/*
 	 * Return false if page table scanning in rmap_walk should be stopped.
 	 * Otherwise, return true.
