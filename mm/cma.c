@@ -459,12 +459,8 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
 	size_t i;
 	struct page *page = NULL;
 	int ret = -ENOMEM;
-	int retry_after_sleep = 0;
-<<<<<<< HEAD
 	int max_retries = 20;
 	int available_regions = 0;
-=======
->>>>>>> d3dd263ce4f6 (Revert "mm: cma: Increase retries if less blocks available")
 
 	if (!cma || !cma->count)
 		return NULL;
