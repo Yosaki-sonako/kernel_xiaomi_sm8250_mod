@@ -5635,17 +5635,7 @@ bool cpu_overutilized(int cpu)
 }
 
 
-/*
- * Ensure that caller can do EAS. overutilized value
- * make sense only if EAS is enabled
- */
-static inline int is_rd_overutilized(struct root_domain *rd)
-{
-	return READ_ONCE(rd->overutilized);
-}
-
-static inline void set_rd_overutilized_status(struct root_domain *rd,
-					      unsigned int status)
+static bool sd_overutilized(struct sched_domain *sd)
 {
 	return sd->shared->overutilized;
 }
@@ -5669,8 +5659,10 @@ static inline void update_overutilized_status(struct rq *rq)
 	rcu_read_lock();
 	sd = rcu_dereference(rq->sd);
 
-	if (!is_rd_overutilized(rq->rd) && cpu_overutilized(rq->cpu))
-		set_rd_overutilized_status(rq->rd, SG_OVERUTILIZED);
+	if (sd && !sd_overutilized(sd) &&
+	    cpu_overutilized(rq->cpu))
+		set_sd_overutilized(sd);
+	rcu_read_unlock();
 }
 #else
 static inline void update_overutilized_status(struct rq *rq) { }
