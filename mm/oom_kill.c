@@ -146,8 +146,6 @@ bool should_ulmk_retry(gfp_t gfp_mask)
 		.memcg = NULL,
 		.gfp_mask = gfp_mask,
 		.order = 0,
-		/* Also causes check_panic_on_oom not to panic */
-		.only_positive_adj = true,
 	};
 
 	if (!sysctl_panic_on_oom)
@@ -1223,7 +1221,6 @@ static void oom_kill_process(struct oom_control *oc, const char *message)
 	 * If ->only_positive_adj = true in oom context,
 	 * consider them as kill from ulmk.
 	 */
-	if (oc->only_positive_adj)
 		ulmk_update_last_kill();
 	__oom_kill_process(victim);
 
@@ -1255,8 +1252,7 @@ static void check_panic_on_oom(struct oom_control *oc,
 			return;
 	}
 	/* Do not panic for oom kills triggered by sysrq */
-	if (is_sysrq_oom(oc) || oc->only_positive_adj)
-		return;
+	if (is_sysrq_oom(oc)		return;
 	dump_header(oc, NULL);
 	panic("Out of memory: %s panic_on_oom is enabled\n",
 		sysctl_panic_on_oom == 2 ? "compulsory" : "system-wide");
@@ -1359,8 +1355,7 @@ bool out_of_memory(struct oom_control *oc)
 		 * system level, we cannot survive this and will enter
 		 * an endless loop in the allocator. Bail out now.
 		 */
-		if (!is_sysrq_oom(oc) && !is_memcg_oom(oc) &&
-		    !oc->only_positive_adj)
+		if (!is_sysrq_oom(oc) && !is_memcg_oom(oc)
 			panic("System is deadlocked on memory\n");
 	}
 	if (oc->chosen && oc->chosen != (void *)-1UL)
