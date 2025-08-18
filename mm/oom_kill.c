@@ -1392,7 +1392,7 @@ void add_to_oom_reaper(struct task_struct *p)
 
 	get_task_struct(p);
 	if (task_will_free_mem(p)) {
-		__mark_oom_victim(p);
+		mark_oom_victim(p);
 		wake_oom_reaper(p);
 	}
 
