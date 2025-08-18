@@ -10291,11 +10291,9 @@ next_group:
 	env->src_grp_nr_running = sds->busiest_stat.sum_nr_running;
 
 	if (!env->sd->parent) {
-		struct root_domain *rd = env->dst_rq->rd;
 		
 		/* update overload indicator if we are at root domain */
-	if (READ_ONCE(env->dst_rq->rd->overload) != (sg_status & SG_OVERLOAD))
-			WRITE_ONCE(env->dst_rq->rd->overload, sg_status & SG_OVERLOAD);
+	set_rd_overload(env->dst_rq->rd, sg_status & SG_OVERLOAD);
 
 	if (sg_status & SG_OVERUTILIZED)
 		set_sd_overutilized(env->sd);
