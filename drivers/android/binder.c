@@ -4595,6 +4595,7 @@ void rekernel_binder_transaction(bool reply, struct binder_transaction *t,
  
 			 binder_stat_br(proc, thread, cmd);
 		 } break;
+		 case BINDER_WORK_TRANSACTION_ONEWAY_SPAM_SUSPECT:
 		 case BINDER_WORK_TRANSACTION_COMPLETE: {
 			 binder_inner_proc_unlock(proc);
 			 cmd = BR_TRANSACTION_COMPLETE;
