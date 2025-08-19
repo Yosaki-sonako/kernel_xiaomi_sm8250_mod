@@ -2239,7 +2239,7 @@ struct vm_struct *find_vm_area(const void *addr)
 static struct vm_struct *__remove_vm_area(struct vmap_area *va)
 {
 	struct vm_struct *vm = va->vm;
-
+	spin_lock(&vmap_area_lock);
 	va->vm = NULL;
 	spin_unlock(&vmap_area_lock);
 
