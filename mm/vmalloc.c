@@ -2240,10 +2240,7 @@ static struct vm_struct *__remove_vm_area(struct vmap_area *va)
 {
 	struct vm_struct *vm = va->vm;
 
-	spin_lock(&vmap_area_lock);
 	va->vm = NULL;
-	va->flags &= ~VM_VM_AREA;
-	va->flags |= VM_LAZY_FREE;
 	spin_unlock(&vmap_area_lock);
 
 	kasan_free_shadow(vm);
@@ -2265,7 +2262,6 @@ struct vm_struct *remove_vm_area(const void *addr)
 
 	struct vmap_area *va;
 
-  
 	spin_lock(&vmap_area_lock);
 	va = __find_vmap_area((unsigned long)addr);
 
@@ -2295,7 +2291,7 @@ static void __vunmap(const void *addr, int deallocate_pages)
 		return;
 
 	va = find_vmap_area((unsigned long)addr);
-	if (unlikely(!va || !(va->flags & VM_VM_AREA))) {
+	if (unlikely(!area)) {
 		WARN(1, KERN_ERR "Trying to vfree() nonexistent vm area (%p)\n",
 				addr);
 		return;
