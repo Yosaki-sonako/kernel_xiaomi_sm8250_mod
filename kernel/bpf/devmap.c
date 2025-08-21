@@ -534,6 +534,7 @@ static void dev_map_flush_old(struct bpf_dtab_netdev *dev)
 		}
 		rcu_read_unlock();
 	}
+}
 
 
 static void __dev_map_entry_free(struct rcu_head *rcu)
