@@ -463,11 +463,6 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
 	int num_attempts = 0;
 	int max_retries = 5;
 
-	int num_attempts = 0;
-	int max_retries = 5;
-
-
-
 	if (!cma || !cma->count)
 		return NULL;
 
