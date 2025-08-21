@@ -2246,7 +2246,8 @@ static struct vm_struct *__remove_vm_area(struct vmap_area *va)
 	kasan_free_shadow(vm);
 	free_unmap_vmap_area(va);
 
-	return vm;
+	spin_unlock(&free_vmap_area_lock);
+  return vm;
 }
 
 /**
