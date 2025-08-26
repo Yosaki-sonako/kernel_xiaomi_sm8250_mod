@@ -328,10 +328,9 @@ EXPORT_SYMBOL(vmalloc_to_pfn);
 #define DEBUG_AUGMENT_PROPAGATE_CHECK 0
 #define DEBUG_AUGMENT_LOWEST_MATCH_CHECK 0
 
-<<<<<<< HEAD
-=======
+
 #define VM_VM_AREA	0x04
->>>>>>> 3bd71fc21d33 (mm/vmalloc: do not keep unpurged areas in the busy tree)
+
 
 static DEFINE_SPINLOCK(vmap_area_lock);
 static DEFINE_SPINLOCK(free_vmap_area_lock);
@@ -2279,7 +2278,7 @@ struct vm_struct *remove_vm_area(const void *addr)
 
 	struct vmap_area *va;
 
-<<<<<<< HEAD
+
 	spin_lock(&vmap_area_lock);
 	va = __find_vmap_area((unsigned long)addr);
 
@@ -2292,7 +2291,7 @@ struct vm_struct *remove_vm_area(const void *addr)
 	}
 
   spin_unlock(&vmap_area_lock);
-=======
+
   
 	spin_lock(&vmap_area_lock);
 	va = __find_vmap_area((unsigned long)addr);
@@ -2300,7 +2299,7 @@ struct vm_struct *remove_vm_area(const void *addr)
 		return va->vm;
   spin_unlock(&vmap_area_lock);
 
->>>>>>> 3bd71fc21d33 (mm/vmalloc: do not keep unpurged areas in the busy tree)
+
 	return NULL;
 
 }
